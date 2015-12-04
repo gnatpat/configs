@@ -7,6 +7,16 @@ set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
 
+"ignore arrow keys
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+"start pathogen
+"execute pathogen#infect()
+"
+
 " set relative line numbers
 set rnu
 
