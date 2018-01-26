@@ -128,16 +128,16 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 1 px or 1 ppt
+        bindsym j resize grow height 1 px or 1 ppt
+        bindsym k resize shrink height 1 px or 1 ppt
+        bindsym l resize grow width 1 px or 1 ppt
 
         # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+        bindsym Left resize shrink width 1 px or 1 ppt
+        bindsym Down resize grow height 1 px or 1 ppt
+        bindsym Up resize shrink height 1 px or 1 ppt
+        bindsym Right resize grow width 1 px or 1 ppt
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -149,14 +149,13 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3status | ~/bin/wrapper.py
 }
 
 ### END OF GENERATED SECTION ###
 
 #Remove borders and add gap size
-for_window [class="^.*"] border pixel 0
-gap_size 10
+for_window [class="^.*"] border pixel 1
 
 #Set background picture
 exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/bridge.jpg
@@ -165,9 +164,22 @@ exec --no-startup-id feh --bg-fill ~/Pictures/Wallpapers/bridge.jpg
 bindsym $mod+c exec google-chrome
 
 #Add wireless menu to status bar
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 #Use volume up and down buttons
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl -- set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+
+#Add lock shortcut
+bindsym Control+mod1+l exec "~/.local/bin/fuzzy_lock.sh"
+exec xautolock -time 15 -locker "~/.local/bin/fuzzy_lock.sh"
+
+#Trying scratchpad
+bindsym $mod+less scratchpad show
+bindsym $mod+greater move scratchpad
+
+bindsym $mod+minus exec amixer -D pulse sset Master 5%-
+bindsym $mod+equal exec amixer -D pulse sset Master 5%+
+
